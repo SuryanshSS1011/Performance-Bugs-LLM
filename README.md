@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Defects4J](https://img.shields.io/badge/Defects4J-v2.0.0-green.svg)](https://github.com/rjust/defects4j)
+[![Defects4J](https://img.shields.io/badge/Defects4J-v3.0.1-green.svg)](https://github.com/rjust/defects4j)
 
 This repository contains the code, dataset, and models from our paper "Fixing Performance Bugs Through LLM Explanations". We provide tools to extract performance bugs from Defects4J, fine-tune GPT-4o-mini for performance bug detection, and evaluate the results.
 
@@ -26,7 +26,7 @@ cd performance-bugs-llm
 # Download and prepare the dataset
 python scripts/validate_dataset.py
 
-# Run the model on a Java file
+# Run the model on a Java file of your choice to 
 python model/inference/detect_performance_bugs.py --file YourJavaFile.java
 ```
 
@@ -54,7 +54,7 @@ python model/inference/detect_performance_bugs.py --file YourJavaFile.java
 
 1. **Clone the repository**:
 ```bash
-git clone https://github.com/yourusername/performance-bugs-llm.git
+git clone https://github.com/SuryanshSS1011/performance-bugs-llm.git
 cd performance-bugs-llm
 ```
 
@@ -177,11 +177,11 @@ python test_harness/run_performance_tests.py --bug-id Chart-11
 If you use this dataset or code, please cite our paper:
 
 ```bibtex
-@inproceedings{sijwali2024fixing,
+@inproceedings{performancebugs2025,
   title={Fixing Performance Bugs Through LLM Explanations},
   author={Sijwali, Suryansh Singh and Colom, Angela Marie and Guo, Anbi and Saha, Suman},
   booktitle={Proceedings of the Conference},
-  year={2024}
+  year={2025}
 }
 ```
 
@@ -209,4 +209,3 @@ For questions or issues, please:
 
 - [Paper](https://arxiv.org/abs/your-paper-id)
 - [Defects4J](https://github.com/rjust/defects4j)
-- [Project Website](https://your-project-website.com)

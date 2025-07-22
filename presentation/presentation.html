@@ -179,10 +179,10 @@
             border-radius: 8px;
             font-family: 'Courier New', monospace;
             margin: 20px 0;
-            overflow-x: auto;
+            overflow: visible;
             line-height: 1.6;
             font-size: 0.95em;
-            min-height: 120px;
+            height: auto;
         }
         
         .metrics-container {
@@ -657,7 +657,10 @@ protected void removeEntry(...) {
                 </tr>
             </table>
             
-            <p style="margin-top: 20px;">Strong diagonal values show accurate classification. Notable confusion between Algorithmic Inefficiency and CPU Overhead reflects their natural overlap.</p>
+            <ul style="margin-top: 20px;">
+                <li>Strong diagonal values show accurate classification across all categories</li>
+                <li>Notable confusion between Algorithmic Inefficiency and CPU Overhead reflects their natural overlap</li>
+            </ul>
             <div class="slide-number">13 / 17</div>
         </div>
 

@@ -577,7 +577,7 @@
             <h1>Case Study: Bug ID 25 (Collections)</h1>
             <h2>Algorithmic Inefficiency in AbstractHashedMap</h2>
             <div class="code-example">
-// Buggy: O(n²) complexity - unnecessary full table scan
+                <pre style="margin: 0; font-family: 'Courier New', monospace; color: inherit;">// Buggy: O(n²) complexity - unnecessary full table scan
 protected void removeEntry(...) {
     // Step 1: Normal O(1) removal
     if (previous == null) {
@@ -590,7 +590,7 @@ protected void removeEntry(...) {
     for (HashEntry element : data) {
         // Redundant search through entire table
     }
-}
+}</pre>
             </div>
             <h3>Performance Impact:</h3>
             <p style="background: #ffe5e5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">

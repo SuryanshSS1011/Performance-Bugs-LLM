@@ -577,41 +577,28 @@
             <h1>Case Study: Bug ID 25 (Collections)</h1>
             <h2>Algorithmic Inefficiency in AbstractHashedMap</h2>
             <div class="code-example">
-<span style="color: #95a5a6;">// removeEntry() method - O(n²) complexity issue</span>
-<span style="color: #e74c3c;">protected void</span> removeEntry(HashEntry&lt;K, V&gt; entry, 
-                     <span style="color: #e74c3c;">int</span> hashIndex, HashEntry&lt;K, V&gt; previous) {
-    
-    <span style="color: #95a5a6;">// Step 1: Efficient removal (O(1))</span>
-    <span style="color: #e74c3c;">if</span> (previous == <span style="color: #e74c3c;">null</span>) {
+// Buggy: O(n²) complexity - unnecessary full table scan
+protected void removeEntry(...) {
+    // Step 1: Normal O(1) removal
+    if (previous == null) {
         data[hashIndex] = entry.next;
-    } <span style="color: #e74c3c;">else</span> {
+    } else {
         previous.next = entry.next;
     }
     
-    <span style="color: #95a5a6;">// Step 2: PROBLEM - Unnecessary full table scan</span>
-    <span style="color: #f39c12;">for</span> (HashEntry&lt;K, V&gt; element : data) {
-        <span style="color: #95a5a6;">// Scans ENTIRE hash table again O(n)</span>
-        <span style="color: #95a5a6;">// This search is redundant and unnecessary!</span>
-        <span style="color: #f39c12;">if</span> (element != <span style="color: #e74c3c;">null</span> && element.equals(entry)) {
-            <span style="color: #95a5a6;">// Already removed above - wasteful!</span>
-        }
+    // Step 2: Problematic full scan (lines 11-20)
+    for (HashEntry element : data) {
+        // Redundant search through entire table
     }
 }
             </div>
-            <div class="two-column" style="margin-top: 20px;">
-                <div style="background: #ffe5e5; padding: 20px; border-radius: 8px; border-left: 4px solid #e74c3c;">
-                    <h3 style="color: #c0392b; margin-top: 0;">Performance Issue</h3>
-                    <p><strong>Complexity:</strong> O(1) + O(n) = O(n)</p>
-                    <p><strong>Problem:</strong> Removes entry efficiently, then scans entire table unnecessarily</p>
-                    <p><strong>Impact:</strong> 100x slower for tables with 100+ entries</p>
-                </div>
-                <div style="background: #e8f4f8; padding: 20px; border-radius: 8px; border-left: 4px solid #27ae60;">
-                    <h3 style="color: #27ae60; margin-top: 0;">Solution</h3>
-                    <p><strong>Fix:</strong> Remove redundant table scan</p>
-                    <p><strong>Result:</strong> Pure O(1) complexity</p>
-                    <p><strong>Performance:</strong> 100x improvement for large tables</p>
-                </div>
-            </div>
+            <h3>Performance Impact:</h3>
+            <p style="background: #ffe5e5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <strong>Issue:</strong> Removes entry twice - once efficiently (O(1)), then scans entire table (O(n))
+            </p>
+            <p style="background: #e8f4f8; padding: 15px; border-radius: 8px;">
+            <strong>Fix:</strong> Remove redundant full-table scan, keeping only the O(1) removal
+            </p>
             <div class="slide-number">12 / 17</div>
         </div>
 
@@ -670,13 +657,7 @@
                 </tr>
             </table>
             
-            <h2>Analysis</h2>
-            <ul>
-                <li><strong>Strong diagonal performance</strong> indicates high classification accuracy across categories</li>
-                <li><strong>Algorithmic vs CPU confusion</strong> reflects natural overlap in performance optimization patterns</li>
-                <li><strong>Memory classification</strong> shows excellent precision with minimal false positives</li>
-                <li><strong>I/O detection challenges</strong> evident in smaller sample size and some misclassifications</li>
-            </ul>
+            <p style="margin-top: 20px;">Strong diagonal values show accurate classification. Notable confusion between Algorithmic Inefficiency and CPU Overhead reflects their natural overlap.</p>
             <div class="slide-number">13 / 17</div>
         </div>
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fixing Performance Bugs Through LLM Explanations</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -295,7 +296,7 @@
             </ul>
             <h2>The Challenge</h2>
             <p>Traditional tools (static analyzers, profilers) are limited to known patterns and struggle with complex code.</p>
-            <div class="slide-number">2 / 16</div>
+            <div class="slide-number">2 / 17</div>
         </div>
 
         <!-- Slide 3: Research Objectives -->
@@ -317,7 +318,7 @@
             </div>
             <h2>Our Approach</h2>
             <p>Fine-tune a large language model to not only fix performance bugs but also generate human-readable explanations that developers can understand.</p>
-            <div class="slide-number">3 / 16</div>
+            <div class="slide-number">3 / 17</div>
         </div>
 
         <!-- Slide 4: Dataset Overview -->
@@ -335,9 +336,8 @@
                 </div>
                 <div>
                     <h2>Bug Categories</h2>
-                    <div class="image-placeholder">
-                        Performance Bug Distribution Chart
-                        <br>(See Figure 1 in paper)
+                    <div style="height: 300px; display: flex; align-items: center; justify-content: center;">
+                        <canvas id="bugDistributionChart" width="300" height="300"></canvas>
                     </div>
                 </div>
             </div>
@@ -453,12 +453,12 @@
                 <div class="metric-box">
                     <div class="metric-value">🎯</div>
                     <div class="metric-label"><strong>Bug Caught %</strong></div>
-                    <p style="font-size: 0.9em; margin-top: 10px;">Correctly identified performance bug type</p>
+                    <p style="font-size: 0.9em; margin-top: 10px;">Bugs correctly detected out of total</p>
                 </div>
                 <div class="metric-box">
                     <div class="metric-value">📊</div>
                     <div class="metric-label"><strong>Report Match %</strong></div>
-                    <p style="font-size: 0.9em; margin-top: 10px;">Explanation quality (0.75+ score)</p>
+                    <p style="font-size: 0.9em; margin-top: 10px;">Generated explanations matching actual issue (0.75+ weighted score)</p>
                 </div>
                 <div class="metric-box">
                     <div class="metric-value">🔍</div>
@@ -502,7 +502,49 @@
             <div class="slide-number">9 / 16</div>
         </div>
 
-        <!-- Slide 10: Detailed Results -->
+        <!-- Slide 11: Improvement over Base Model -->
+        <div class="slide">
+            <h1>Fine-tuning Impact: Base vs. Our Model</h1>
+            <div style="margin: 0 auto; max-width: 900px;">
+                <table class="table" style="font-size: 1.1em; margin-top: 30px;">
+                    <tr>
+                        <th style="width: 30%;">Metric</th>
+                        <th style="width: 23%; text-align: center;">Base GPT-4o-mini</th>
+                        <th style="width: 23%; text-align: center; background: #2c3e50;">Fine-tuned Model</th>
+                        <th style="width: 24%; text-align: center; background: #27ae60; color: white;">Improvement</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Accuracy</strong></td>
+                        <td style="text-align: center;">67.3%</td>
+                        <td style="text-align: center; background: #e8f4f8;"><strong>83.7%</strong></td>
+                        <td style="text-align: center; background: #d5f4e6;"><strong>+16.4%</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precision</strong></td>
+                        <td style="text-align: center;">65.1%</td>
+                        <td style="text-align: center; background: #e8f4f8;"><strong>83.0%</strong></td>
+                        <td style="text-align: center; background: #d5f4e6;"><strong>+17.9%</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Recall</strong></td>
+                        <td style="text-align: center;">64.2%</td>
+                        <td style="text-align: center; background: #e8f4f8;"><strong>81.8%</strong></td>
+                        <td style="text-align: center; background: #d5f4e6;"><strong>+17.6%</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>F1 Score</strong></td>
+                        <td style="text-align: center;">64.6%</td>
+                        <td style="text-align: center; background: #e8f4f8;"><strong>82.3%</strong></td>
+                        <td style="text-align: center; background: #d5f4e6;"><strong>+17.7%</strong></td>
+                    </tr>
+                </table>
+                
+                <p style="text-align: center; margin-top: 30px; font-size: 1.1em; color: #666;">
+                    Task-specific fine-tuning with contextual signals significantly improves all metrics
+                </p>
+            </div>
+            <div class="slide-number">11 / 17</div>
+        </div>
         <div class="slide">
             <h1>Performance Analysis</h1>
             <div class="two-column">
@@ -529,23 +571,31 @@
 
         <!-- Slide 11: Case Study -->
         <div class="slide">
-            <h1>Case Study Example</h1>
-            <h2>Algorithmic Inefficiency Detection</h2>
+            <h1>Case Study: Bug ID 25 (Collections)</h1>
+            <h2>Algorithmic Inefficiency in AbstractHashedMap</h2>
             <div class="code-example">
-// Buggy version: O(n²) complexity
-for (int i = 0; i < list.size(); i++) {
-    for (int j = 0; j < list.size(); j++) {
-        if (list.get(i).equals(list.get(j))) {
-            count++; // Counting duplicates inefficiently
-        }
+// removeEntry() method - O(n²) complexity issue
+protected void removeEntry(...) {
+    // Step 1: Efficient removal (O(1))
+    if (previous == null) {
+        data[hashIndex] = entry.next;
+    } else {
+        previous.next = entry.next;
+    }
+    
+    // Step 2: PROBLEM - Unnecessary full table scan
+    for (HashEntry&lt;K, V&gt; element : data) {
+        // Scans entire hash table again
+        // Looking for references to removed entry
     }
 }
             </div>
-            <h3>Model's Generated Explanation:</h3>
-            <p style="background: #e8f4f8; padding: 15px; border-radius: 8px; font-style: italic;">
-            "Replaced O(n²) nested loop with O(n) HashSet lookup for duplicate detection. 
-            This reduces time complexity from quadratic to linear, significantly improving 
-            performance for lists with more than 100 elements."
+            <h3>Performance Impact:</h3>
+            <p style="background: #ffe5e5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <strong>Issue:</strong> Removes entry twice - once efficiently (O(1)), then scans entire table (O(n))
+            </p>
+            <p style="background: #e8f4f8; padding: 15px; border-radius: 8px;">
+            <strong>Fix:</strong> Remove redundant full-table scan, keeping only the O(1) removal
             </p>
             <div class="slide-number">11 / 16</div>
         </div>
@@ -553,17 +603,21 @@ for (int i = 0; i < list.size(); i++) {
         <!-- Slide 12: Confusion Matrix -->
         <div class="slide">
             <h1>Classification Accuracy</h1>
-            <h2>Confusion Matrix (Selected Categories)</h2>
-            <table class="table" style="font-size: 1.1em;">
+            <h2>Full Confusion Matrix</h2>
+            <table class="table" style="font-size: 0.9em;">
                 <tr>
-                    <th>Actual \ Predicted</th>
+                    <th style="font-size: 0.85em;">Actual \ Predicted</th>
                     <th>Algorithmic</th>
                     <th>Memory</th>
                     <th>Redundant</th>
+                    <th>CPU</th>
+                    <th>I/O</th>
                 </tr>
                 <tr>
                     <td><strong>Algorithmic</strong></td>
-                    <td style="background: #27ae60; color: white;">31</td>
+                    <td style="background: #27ae60; color: white;">30</td>
+                    <td>1</td>
+                    <td>1</td>
                     <td>1</td>
                     <td>0</td>
                 </tr>
@@ -572,15 +626,35 @@ for (int i = 0; i < list.size(); i++) {
                     <td>2</td>
                     <td style="background: #27ae60; color: white;">19</td>
                     <td>0</td>
+                    <td>2</td>
+                    <td>0</td>
                 </tr>
                 <tr>
                     <td><strong>Redundant</strong></td>
                     <td>0</td>
                     <td>1</td>
                     <td style="background: #27ae60; color: white;">9</td>
+                    <td>1</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><strong>CPU Overhead</strong></td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td style="background: #27ae60; color: white;">16</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><strong>I/O Inefficiency</strong></td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td style="background: #27ae60; color: white;">8</td>
                 </tr>
             </table>
-            <p style="margin-top: 20px;">Strong diagonal values indicate accurate classification. Minor confusion between CPU Overhead and Memory Usage categories.</p>
+            <p style="margin-top: 15px; font-size: 0.95em;">Strong diagonal values show accurate classification. Notable confusion between Algorithmic Inefficiency and CPU Overhead reflects their natural overlap.</p>
             <div class="slide-number">12 / 16</div>
         </div>
 
@@ -654,9 +728,9 @@ for (int i = 0; i < list.size(); i++) {
                     <h3>Includes:</h3>
                     <ul>
                         <li>Complete bug metadata</li>
+                        <li>Code diffs and fixes</li>
                         <li>Evaluation scripts</li>
                         <li>Fine-tuning pipeline</li>
-                        <li>Weighted scoring system</li>
                     </ul>
                 </div>
             </div>
@@ -668,8 +742,9 @@ for (int i = 0; i < list.size(); i++) {
             <h1>Thank You!</h1>
             <h2>Questions & Discussion</h2>
             <p style="font-size: 1.3em; margin-top: 50px;">
-                🔗 Dataset and code will be publicly available<br>
-                📧 Contact: [authors' emails]<br>
+                🔗 <a href="https://github.com/SuryanshSS1011/Performance-Bugs-LLM" style="color: #e8f4f8; text-decoration: underline;">Dataset & Repository: github.com/SuryanshSS1011/Performance-Bugs-LLM</a><br>
+                📧 Contact: sss6371@psu.edu<br>
+                <span style="font-size: 0.9em; opacity: 0.8;">Or contact any of the research team authors</span>
             </p>
             <div class="slide-number">16 / 16</div>
         </div>
@@ -724,6 +799,85 @@ for (int i = 0; i < list.size(); i++) {
                 el.textContent = `${index + 1} / ${totalSlides}`;
             }
         });
+
+        // Create the performance bug distribution chart
+        function createBugDistributionChart() {
+            const ctx = document.getElementById('bugDistributionChart');
+            if (!ctx) return;
+            
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        'Algorithmic Inefficiency',
+                        'Memory Usage',
+                        'CPU Overhead',
+                        'Redundant Computation',
+                        'I/O Inefficiency'
+                    ],
+                    datasets: [{
+                        data: [165, 116, 98, 54, 56],
+                        backgroundColor: [
+                            '#3498db', // Blue for Algorithmic
+                            '#e74c3c', // Red for Memory
+                            '#f39c12', // Orange for CPU
+                            '#9b59b6', // Purple for Redundant
+                            '#27ae60'  // Green for I/O
+                        ],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 15,
+                                padding: 10,
+                                font: {
+                                    size: 11
+                                },
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    if (data.labels.length && data.datasets.length) {
+                                        const dataset = data.datasets[0];
+                                        return data.labels.map((label, i) => {
+                                            const value = dataset.data[i];
+                                            const percentage = ((value / 490) * 100).toFixed(1);
+                                            return {
+                                                text: `${label}: ${value} (${percentage}%)`,
+                                                fillStyle: dataset.backgroundColor[i],
+                                                strokeStyle: dataset.borderColor,
+                                                lineWidth: dataset.borderWidth,
+                                                hidden: false,
+                                                index: i
+                                            };
+                                        });
+                                    }
+                                    return [];
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed;
+                                    const percentage = ((value / 490) * 100).toFixed(1);
+                                    return `${label}: ${value} bugs (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create chart when page loads
+        createBugDistributionChart();
     </script>
 </body>
 </html>

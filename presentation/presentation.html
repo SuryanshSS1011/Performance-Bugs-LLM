@@ -132,16 +132,16 @@
         h1 {
             color: #2c3e50;
             font-size: 2.5em;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             border-bottom: 3px solid #3498db;
-            padding-bottom: 15px;
+            padding-bottom: 8px;
         }
         
         h2 {
             color: #34495e;
             font-size: 1.8em;
-            margin-top: 30px;
-            margin-bottom: 20px;
+            margin-top: 15px;
+            margin-bottom: 10px;
         }
         
         h3 {
@@ -593,10 +593,10 @@ protected void removeEntry(...) {
 }</pre>
             </div>
             <div class="two-column" style="margin-top: 15px; gap: 20px;">
-                <div style="background: #ffe5e5; padding: 12px; border-radius: 6px; border-left: 3px solid #e74c3c;">
+                <div style="background: #ffe5e5; padding: 12px; border-radius: 6px; border-left: 3px solid #e74c3c; font-size: 1.2em;">
                     <strong>Issue:</strong> Removes entry twice - once efficiently (O(1)), then scans entire table (O(n))
                 </div>
-                <div style="background: #e8f4f8; padding: 12px; border-radius: 6px; border-left: 3px solid #27ae60;">
+                <div style="background: #e8f4f8; padding: 12px; border-radius: 6px; border-left: 3px solid #27ae60; font-size: 1.2em;">
                     <strong>Fix:</strong> Remove redundant full-table scan, keeping only the O(1) removal
                 </div>
             </div>

@@ -576,7 +576,7 @@
         <div class="slide">
             <h1>Case Study: Bug ID 25 (Collections)</h1>
             <h2>Algorithmic Inefficiency in AbstractHashedMap</h2>
-            <div class="code-example">
+            <div class="code-example" style="margin: 15px 0;">
                 <pre style="margin: 0; font-family: 'Courier New', monospace; color: inherit;">// Buggy: O(n²) complexity - unnecessary full table scan
 protected void removeEntry(...) {
     // Step 1: Normal O(1) removal
@@ -592,13 +592,14 @@ protected void removeEntry(...) {
     }
 }</pre>
             </div>
-            <h3>Performance Impact:</h3>
-            <p style="background: #ffe5e5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-            <strong>Issue:</strong> Removes entry twice - once efficiently (O(1)), then scans entire table (O(n))
-            </p>
-            <p style="background: #e8f4f8; padding: 15px; border-radius: 8px;">
-            <strong>Fix:</strong> Remove redundant full-table scan, keeping only the O(1) removal
-            </p>
+            <div class="two-column" style="margin-top: 15px; gap: 20px;">
+                <div style="background: #ffe5e5; padding: 12px; border-radius: 6px; border-left: 3px solid #e74c3c;">
+                    <strong>Issue:</strong> Removes entry twice - once efficiently (O(1)), then scans entire table (O(n))
+                </div>
+                <div style="background: #e8f4f8; padding: 12px; border-radius: 6px; border-left: 3px solid #27ae60;">
+                    <strong>Fix:</strong> Remove redundant full-table scan, keeping only the O(1) removal
+                </div>
+            </div>
             <div class="slide-number">12 / 17</div>
         </div>
 

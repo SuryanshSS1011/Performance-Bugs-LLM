@@ -1,5 +1,7 @@
 # Evaluation Directory
 
+[← Back to Main README](../README.md)
+
 This directory contains scripts and tools for evaluating the performance bug detection model.
 
 ## Directory Structure
@@ -298,8 +300,18 @@ After evaluation:
 3. **Deploy**: Create production pipeline
 4. **Monitor**: Track real-world performance
 
+## Related Components
+
+- **[Dataset](../dataset/)** - The performance bugs being evaluated
+- **[Model](../model/)** - The fine-tuned model being evaluated
+- **[Extraction](../extraction/)** - How the evaluated bugs were extracted
+- **[Installation Guide](../docs/INSTALLATION_GUIDE.md)** - Setup requirements
+
 ## References
 
 - [Paper: Fixing Performance Bugs Through LLM Explanations] ()
 - [OpenAI Fine-tuning Documentation] (https://platform.openai.com/docs/guides/fine-tuning)
 - [Scikit-learn Metrics Guide] (https://scikit-learn.org/stable/modules/model_evaluation.html)
+
+---
+[← Back to Main README](../README.md)

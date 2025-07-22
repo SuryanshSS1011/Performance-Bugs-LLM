@@ -1,5 +1,7 @@
 # Performance Bugs Dataset
 
+[← Back to Main README](../README.md)
+
 This directory contains the dataset of 490 performance bugs extracted from Defects4J projects.
 
 ## Files
@@ -103,8 +105,18 @@ If you use this dataset, please cite:
 }
 ```
 
+## Related Documentation
+
+- **[Model Training](../model/)** - How to use this dataset for fine-tuning
+- **[Evaluation Metrics](../evaluation/)** - How the dataset performance is measured
+- **[Extraction Process](../extraction/)** - How these bugs were extracted from Defects4J
+- **[Usage Guide](../docs/USAGE.md)** - Detailed usage instructions
+
 ## Contact
 
 For questions about the dataset:
 - Open an issue on GitHub
 - Contact the paper authors
+
+---
+[← Back to Main README](../README.md)

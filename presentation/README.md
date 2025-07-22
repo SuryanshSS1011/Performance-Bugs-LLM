@@ -1,5 +1,7 @@
 # Conference Presentation
 
+[← Back to Main README](../README.md)
+
 This directory contains the conference presentation for the paper "Fixing Performance Bugs Through LLM Explanations".
 
 ## Viewing the Presentation
@@ -57,6 +59,16 @@ This presentation works best in:
 - Safari
 - Edge
 
+## Related Resources
+
+- **[Paper Abstract](../README.md)** - Overview of the research
+- **[Dataset](../dataset/)** - The 490 performance bugs presented
+- **[Model Results](../model/)** - The fine-tuning approach discussed
+- **[Evaluation Details](../evaluation/)** - The metrics shown in slides
+
 ## License
 
 This presentation is part of the Performance Bugs Dataset and is released under the same license as the dataset.
+
+---
+[← Back to Main README](../README.md)

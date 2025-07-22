@@ -3,8 +3,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Defects4J](https://img.shields.io/badge/Defects4J-v3.0.1-green.svg)](https://github.com/rjust/defects4j)
+![Repository Status](https://img.shields.io/badge/Status-Under%20Development-orange)
 
 This repository contains the code, dataset, and models from our paper "Fixing Performance Bugs Through LLM Explanations". We provide tools to extract performance bugs from Defects4J, fine-tune GPT-4o-mini for performance bug detection, and evaluate the results.
+
+🌐 **[View Project Website](https://suryanshss1011.github.io/Performance-Bugs-LLM/)** | 📊 **[Interactive Presentation](https://suryanshss1011.github.io/Performance-Bugs-LLM/presentation/presentation.html)**
 
 ## 📊 Dataset Statistics
 
@@ -12,6 +15,20 @@ This repository contains the code, dataset, and models from our paper "Fixing Pe
 - **Projects**: 17 Defects4J projects
 - **Categories**: 5 (Algorithmic, Memory, CPU, Redundant Computation, I/O)
 - **Training/Test Split**: 392/98 (80/20)
+
+## 📑 Documentation Index
+
+### Core Components
+- **[Dataset Documentation](dataset/)** - Complete dataset of 490 performance bugs with category distribution
+- **[Model Training & Inference](model/)** - Fine-tuning scripts and inference code for GPT-4o-mini
+- **[Evaluation Framework](evaluation/)** - Metrics, benchmarks, and performance validation tools
+- **[Bug Extraction](extraction/)** - Scripts to extract performance bugs from Defects4J projects
+- **[Conference Presentation](presentation/)** - Interactive slides from our conference presentation
+
+### Detailed Guides
+- **[Installation Guide](docs/INSTALLATION_GUIDE.md)** - Step-by-step setup instructions
+- **[Usage Guide](docs/USAGE.md)** - How to use each component
+- **[Dataset Description](docs/DATASET_DESCRIPTION.md)** - Detailed dataset documentation
 
 ## 🚀 Quick Start
 

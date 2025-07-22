@@ -1,5 +1,7 @@
 # Extraction Workflows
 
+[← Back to Main README](../README.md)
+
 This directory contains the workflows for extracting performance bugs from Defects4J.
 
 ## Directory Structure
@@ -155,6 +157,13 @@ Common issues and solutions:
 3. **Missing patterns**: Some bugs may not match any patterns - this is expected
 4. **Different counts**: Minor variations in bug counts are normal due to pattern matching
 
+## Related Resources
+
+- **[Dataset](../dataset/)** - The resulting 490 performance bugs
+- **[Model Training](../model/)** - How to train models on extracted bugs
+- **[Evaluation](../evaluation/)** - How to evaluate extraction quality
+- **[Installation Guide](../docs/INSTALLATION_GUIDE.md)** - Defects4J setup instructions
+
 ## Citations
 
 If you use these extraction workflows, please cite:
@@ -167,3 +176,6 @@ If you use these extraction workflows, please cite:
   year={2024}
 }
 ```
+
+---
+[← Back to Main README](../README.md)

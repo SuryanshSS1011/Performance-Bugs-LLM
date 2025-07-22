@@ -1,5 +1,7 @@
 # Model Directory
 
+[← Back to Main README](../README.md)
+
 This directory contains the fine-tuning and inference code for the GPT-4o-mini performance bug detector.
 
 ## Directory Structure
@@ -227,6 +229,16 @@ For issues or questions:
 2. Open a GitHub issue
 3. Contact the authors
 
+## Related Resources
+
+- **[Dataset Documentation](../dataset/)** - The 490 performance bugs used for training
+- **[Evaluation Framework](../evaluation/)** - How to evaluate model performance
+- **[Usage Guide](../docs/USAGE.md)** - Detailed usage instructions
+- **[Installation Guide](../docs/INSTALLATION_GUIDE.md)** - Setup requirements
+
 ## License
 
 This code is provided under the MIT License. The fine-tuned model remains subject to OpenAI's usage policies.
+
+---
+[← Back to Main README](../README.md)

@@ -1,0 +1,94 @@
+{
+  "extraction_date": "2025-09-02",
+  "total_bugs": 854,
+  "performance_bugs": 174,
+  "performance_rate": 20.374707259953162,
+  "by_project": {
+    "Codec": {
+      "total": 18,
+      "performance": 4,
+      "rate": 22.22222222222222
+    },
+    "Math": {
+      "total": 106,
+      "performance": 17,
+      "rate": 16.037735849056602
+    },
+    "JacksonCore": {
+      "total": 26,
+      "performance": 14,
+      "rate": 53.84615384615385
+    },
+    "Chart": {
+      "total": 26,
+      "performance": 3,
+      "rate": 11.538461538461538
+    },
+    "JacksonDatabind": {
+      "total": 110,
+      "performance": 24,
+      "rate": 21.818181818181817
+    },
+    "Gson": {
+      "total": 18,
+      "performance": 2,
+      "rate": 11.11111111111111
+    },
+    "Jsoup": {
+      "total": 93,
+      "performance": 23,
+      "rate": 24.731182795698924
+    },
+    "JacksonXml": {
+      "total": 6,
+      "performance": 1,
+      "rate": 16.666666666666664
+    },
+    "Time": {
+      "total": 26,
+      "performance": 4,
+      "rate": 15.384615384615385
+    },
+    "Collections": {
+      "total": 28,
+      "performance": 5,
+      "rate": 17.857142857142858
+    },
+    "Csv": {
+      "total": 16,
+      "performance": 6,
+      "rate": 37.5
+    },
+    "Closure": {
+      "total": 174,
+      "performance": 15,
+      "rate": 8.620689655172415
+    },
+    "Compress": {
+      "total": 47,
+      "performance": 19,
+      "rate": 40.42553191489361
+    },
+    "JxPath": {
+      "total": 22,
+      "performance": 5,
+      "rate": 22.727272727272727
+    },
+    "Cli": {
+      "total": 39,
+      "performance": 9,
+      "rate": 23.076923076923077
+    },
+    "Lang": {
+      "total": 61,
+      "performance": 19,
+      "rate": 31.147540983606557
+    },
+    "Mockito": {
+      "total": 38,
+      "performance": 4,
+      "rate": 10.526315789473683
+    }
+  },
+  "target_achieved": false
+}

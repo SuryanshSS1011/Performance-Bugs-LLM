@@ -1,0 +1,28 @@
+{
+  "total_bugs": 490,
+  "train_examples": 363,
+  "test_examples": 92,
+  "train_split": 0.7978021978021979,
+  "categories": {
+    "algorithmic_inefficiency": {
+      "train": 49,
+      "test": 16
+    },
+    "memory_usage": {
+      "train": 83,
+      "test": 13
+    },
+    "redundant_computation": {
+      "train": 105,
+      "test": 25
+    },
+    "cpu_overhead": {
+      "train": 114,
+      "test": 35
+    },
+    "io_inefficiency": {
+      "train": 12,
+      "test": 3
+    }
+  }
+}

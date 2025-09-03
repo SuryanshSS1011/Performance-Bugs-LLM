@@ -104,3 +104,6 @@ release.properties
 
 # Keep .gitkeep files
 !.gitkeep
+
+# Reference source files
+ref/

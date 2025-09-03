@@ -1,0 +1,179 @@
+# Performance Bugs LLM Configuration
+# Flexible configuration for different models and experiments
+
+# Model Configuration
+models:
+  available:
+    - gpt-4o-mini
+    - gpt-3.5-turbo
+    - gpt-4
+    - claude-3-haiku
+    - claude-3-sonnet
+    - llama-3-8b
+    - codellama-7b
+    
+  default: gpt-4o-mini
+  
+  # Model-specific parameters
+  parameters:
+    gpt-4o-mini:
+      temperature: 0.3
+      max_tokens: 2000
+      top_p: 0.9
+      frequency_penalty: 0.1
+      presence_penalty: 0.1
+    
+    gpt-3.5-turbo:
+      temperature: 0.4
+      max_tokens: 1500
+      top_p: 0.9
+      
+    gpt-4:
+      temperature: 0.2
+      max_tokens: 3000
+      top_p: 0.95
+
+# Dataset Configuration  
+dataset:
+  # Data source
+  source: "defects4j"
+  projects:
+    - Chart
+    - Cli
+    - Closure
+    - Codec
+    - Collections
+    - Compress
+    - Csv
+    - Gson
+    - JacksonCore
+    - JacksonDatabind
+    - JacksonXml
+    - Jsoup
+    - JxPath
+    - Lang
+    - Math
+    - Mockito
+    - Time
+  
+  # Bug categories with expected distributions (can vary)
+  categories:
+    algorithmic_inefficiency:
+      expected_ratio: 0.337
+      keywords: ["slow", "performance", "optimize", "efficient", "complexity"]
+      
+    memory_usage:
+      expected_ratio: 0.237
+      keywords: ["memory", "allocation", "gc", "heap", "leak"]
+      
+    cpu_overhead:
+      expected_ratio: 0.202
+      keywords: ["cpu", "overhead", "boxing", "synchronization"]
+      
+    redundant_computation:
+      expected_ratio: 0.110
+      keywords: ["redundant", "duplicate", "repeated", "unnecessary"]
+      
+    io_inefficiency:
+      expected_ratio: 0.114
+      keywords: ["io", "file", "stream", "buffer", "disk"]
+
+# Training Configuration
+training:
+  # Split configuration
+  test_split: 0.2
+  validation_split: 0.1
+  stratify: true
+  random_seed: 42
+  
+  # Fine-tuning parameters
+  fine_tuning:
+    epochs: 3
+    batch_size: 4
+    learning_rate_multiplier: 0.5
+    prompt_loss_weight: 0.1
+    
+  # Training data format
+  data_format: "jsonl"  # or "csv", "json"
+  
+# Evaluation Configuration
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+    - confusion_matrix
+    - report_quality
+    
+  # Report quality scoring weights
+  report_scoring:
+    root_cause_analysis: 0.35
+    issue_identification: 0.25
+    technical_precision: 0.25
+    impact_assessment: 0.15
+    
+  # Thresholds
+  thresholds:
+    report_match: 0.75
+    confidence: 0.6
+    
+# Output Configuration
+output:
+  # Directory structure
+  directories:
+    data: "data/"
+    models: "models/"
+    results: "results/"
+    logs: "logs/"
+    visualizations: "results/visualizations/"
+    
+  # File formats
+  formats:
+    predictions: "json"
+    metrics: "json"
+    report: "markdown"
+    visualizations: ["png", "html"]
+    
+# Experiment Configuration
+experiment:
+  name: "performance_bugs_detection"
+  version: "1.0.0"
+  description: "Detecting and explaining performance bugs using LLMs"
+  
+  # Reproducibility
+  reproducible: true
+  log_level: "INFO"
+  
+  # Features to enable/disable
+  features:
+    use_code_context: true
+    use_commit_messages: true
+    use_bug_reports: true
+    generate_explanations: true
+    validate_fixes: true
+    
+# API Configuration
+api:
+  # OpenAI
+  openai:
+    api_key_env: "OPENAI_API_KEY"
+    organization: null
+    base_url: "https://api.openai.com/v1"
+    
+  # Anthropic
+  anthropic:
+    api_key_env: "ANTHROPIC_API_KEY"
+    base_url: "https://api.anthropic.com"
+    
+  # Local models
+  local:
+    base_url: "http://localhost:8000"
+    model_path: "/models/"
+    
+  # Rate limiting
+  rate_limit:
+    requests_per_minute: 60
+    tokens_per_minute: 90000
+    retry_attempts: 3
+    retry_delay: 1.0

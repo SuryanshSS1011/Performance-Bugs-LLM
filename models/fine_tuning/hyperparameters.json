@@ -1,0 +1,56 @@
+{
+  "base_model": "gpt-4o-mini-2024-07-18",
+  "hyperparameters": {
+    "n_epochs": {
+      "value": 3,
+      "description": "Number of training epochs",
+      "range": [1, 10],
+      "tuned": true
+    },
+    "batch_size": {
+      "value": 8,
+      "description": "Training batch size",
+      "range": [1, 32],
+      "tuned": true
+    },
+    "learning_rate_multiplier": {
+      "value": 0.1,
+      "description": "Learning rate multiplier",
+      "range": [0.01, 2.0],
+      "tuned": true
+    },
+    "prompt_loss_weight": {
+      "value": 0.01,
+      "description": "Weight for prompt token loss",
+      "range": [0.0, 0.1],
+      "tuned": false
+    }
+  },
+  "optimization": {
+    "optimizer": "adamw",
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.03,
+    "gradient_accumulation_steps": 1,
+    "gradient_checkpointing": false,
+    "fp16": false
+  },
+  "regularization": {
+    "dropout": 0.1,
+    "attention_dropout": 0.1,
+    "hidden_dropout": 0.1
+  },
+  "early_stopping": {
+    "enabled": true,
+    "patience": 3,
+    "min_delta": 0.001,
+    "monitor": "val_loss"
+  },
+  "experimental_results": {
+    "best_epoch": 3,
+    "final_train_loss": 0.245,
+    "final_val_loss": 0.312,
+    "final_accuracy": 0.837,
+    "training_time_hours": 2.5
+  },
+  "notes": "These hyperparameters were tuned on the 490 performance bugs dataset to achieve the reported 83.7% accuracy."
+}

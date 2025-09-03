@@ -1,0 +1,43 @@
+{
+  "model": "gpt-4o-mini-2024-07-18",
+  "training": {
+    "n_epochs": 3,
+    "batch_size": 8,
+    "learning_rate_multiplier": 0.1,
+    "prompt_loss_weight": 0.01,
+    "warmup_steps": 100,
+    "eval_steps": 50
+  },
+  "model_settings": {
+    "temperature": 0.3,
+    "max_tokens": 500,
+    "top_p": 0.9,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0
+  },
+  "dataset": {
+    "train_split": 0.8,
+    "validation_split": 0.2,
+    "shuffle": true,
+    "seed": 42
+  },
+  "categories": [
+    "ALGORITHMIC_INEFFICIENCY",
+    "MEMORY_USAGE",
+    "CPU_OVERHEAD",
+    "REDUNDANT_COMPUTATION",
+    "IO_INEFFICIENCY"
+  ],
+  "system_prompt": "You are an expert in detecting and explaining performance bugs in Java code. Your task is to analyze code, identify performance issues, classify them into categories, and provide clear explanations.",
+  "fine_tuning_settings": {
+    "suffix": "perf-bugs-detector",
+    "compute_classification_metrics": true,
+    "classification_n_classes": 5,
+    "classification_positive_class": "ALGORITHMIC_INEFFICIENCY"
+  },
+  "evaluation": {
+    "metrics": ["accuracy", "precision", "recall", "f1"],
+    "save_steps": 100,
+    "logging_steps": 10
+  }
+}

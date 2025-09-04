@@ -82,18 +82,13 @@ echo
 echo "Installing Java parsing library..."
 pip install javalang
 
-# Create necessary directories
+# Create runtime output directories
 echo
-echo "Creating directory structure..."
+echo "Creating output directories..."
 directories=(
-    "dataset"
-    "extraction/original_workflow/logs"
-    "extraction/reproduction_workflow/logs"
-    "model/checkpoints"
-    "model/fine_tuning/data"
-    "evaluation/results/figures"
-    "performance_testing/results"
-    "notebooks"
+    "results/visualizations"
+    "data/training"
+    "data/explanations"
 )
 
 for dir in "${directories[@]}"; do
@@ -111,12 +106,13 @@ else
     echo ".env file already exists"
 fi
 
-# Download Defects4J if not present
+# Defects4J check (only required for reproducing extraction)
 echo
-if [ ! -d "defects4j" ]; then
-    echo "Defects4J not found. Run ./scripts/download_defects4j.sh to install it"
+if command -v defects4j &> /dev/null; then
+    echo "Defects4J found on PATH"
 else
-    echo "Defects4J found at ./defects4j"
+    echo "Defects4J not on PATH. Only needed if reproducing bug extraction."
+    echo "  See https://github.com/rjust/defects4j for setup."
 fi
 
 echo
@@ -126,8 +122,6 @@ echo "============================================"
 echo
 echo "Next steps:"
 echo "1. Edit .env and add your OpenAI API key"
-echo "2. Run ./scripts/download_defects4j.sh if you need to extract bugs"
-echo "3. Activate the virtual environment: source venv/bin/activate"
-echo "4. Verify the dataset: python scripts/validate_dataset.py"
-echo
-echo "To reproduce the paper results: ./scripts/reproduce_paper_results.sh"
+echo "2. Activate the virtual environment: source venv/bin/activate"
+echo "3. Run the pipeline: python main.py"
+echo "4. Regenerate figures from the paper: python scripts/generate_paper_figures.py"

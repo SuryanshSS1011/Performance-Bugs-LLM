@@ -35,8 +35,8 @@ For experienced users, run the automated setup:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/performance-bugs-llm.git
-cd performance-bugs-llm
+git clone https://github.com/SuryanshSS1011/Performance-Bugs-LLM.git
+cd Performance-Bugs-LLM
 
 # Run setup script
 chmod +x scripts/setup_environment.sh
@@ -48,7 +48,7 @@ cp .env.example .env
 
 # Verify installation
 source venv/bin/activate
-python scripts/validate_dataset.py
+python -c "import json; bugs=json.load(open('data/performance_bugs_490.json')); print(f'Loaded {len(bugs)} bugs')"
 ```
 
 ## Detailed Installation
@@ -104,8 +104,8 @@ echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
 ### Step 3: Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/performance-bugs-llm.git
-cd performance-bugs-llm
+git clone https://github.com/SuryanshSS1011/Performance-Bugs-LLM.git
+cd Performance-Bugs-LLM
 ```
 
 ### Step 4: Create Python Environment
@@ -124,14 +124,10 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### Step 5: Install Defects4J
+### Step 5: Install Defects4J (only required for reproducing extraction)
 
 ```bash
-# Run the installation script
-chmod +x scripts/download_defects4j.sh
-./scripts/download_defects4j.sh
-
-# Or install manually
+# Install manually following the official Defects4J guide
 git clone https://github.com/rjust/defects4j.git
 cd defects4j
 ./init.sh
@@ -156,12 +152,12 @@ Add your OpenAI API key:
 OPENAI_API_KEY=sk-...your-key-here...
 ```
 
-### Step 7: Download Dataset
+### Step 7: Verify the Dataset
 
-The dataset is included in the repository. Verify it:
+The 490-bug dataset ships with the repository. Quick check:
 
 ```bash
-python scripts/validate_dataset.py --dataset dataset/performance_bugs_490.json
+python -c "import json; bugs=json.load(open('data/performance_bugs_490.json')); print(f'Total bugs: {len(bugs)}')"
 ```
 
 ## Verification
@@ -189,7 +185,7 @@ defects4j info -p Chart
 python -c "import pandas, numpy, sklearn, openai; print('All packages installed')"
 
 # Validate dataset
-python scripts/validate_dataset.py
+python -c "import json; bugs=json.load(open('data/performance_bugs_490.json')); print(f'Loaded {len(bugs)} bugs')"
 ```
 
 ## Troubleshooting
@@ -209,7 +205,6 @@ sudo update-alternatives --config java
 # Error: Permission denied when running scripts
 # Solution: Make scripts executable
 chmod +x scripts/*.sh
-chmod +x extraction/original_workflow/*.sh
 ```
 
 #### 3. OpenAI API Error
@@ -261,22 +256,22 @@ After successful installation:
 
 1. **Explore the dataset**:
    ```bash
-   jupyter notebook notebooks/data_exploration.ipynb
+   jupyter notebook notebooks/01_data_extraction_analysis.ipynb
    ```
 
-2. **Run a simple bug detection**:
+2. **Run the end-to-end pipeline**:
    ```bash
-   python model/inference/detect_performance_bugs.py --file examples/Sample.java
+   python main.py
    ```
 
 3. **Fine-tune the model** (optional):
    ```bash
-   python model/fine_tuning/fine_tune_gpt4o_mini.py --dataset dataset/performance_bugs_490.json
+   python -m models.fine_tuning_executor
    ```
 
-4. **Reproduce paper results**:
+4. **Regenerate paper figures**:
    ```bash
-   ./scripts/reproduce_paper_results.sh
+   python scripts/generate_paper_figures.py
    ```
 
 ## Support
@@ -284,7 +279,7 @@ After successful installation:
 If you encounter issues:
 
 1. Check the [Troubleshooting](#troubleshooting) section
-2. Search existing [GitHub Issues](https://github.com/yourusername/performance-bugs-llm/issues)
+2. Search existing [GitHub Issues](https://github.com/SuryanshSS1011/Performance-Bugs-LLM/issues)
 3. Create a new issue with:
    - Your OS and Python version
    - Complete error message
@@ -294,4 +289,4 @@ If you encounter issues:
 
 - [Defects4J Documentation](https://github.com/rjust/defects4j/wiki)
 - [OpenAI Fine-tuning Guide](https://platform.openai.com/docs/guides/fine-tuning)
-- [Paper: Fixing Performance Bugs Through LLM Explanations](https://arxiv.org/abs/your-paper)
+- [Paper: Fixing Performance Bugs Through LLM Explanations](https://ieeexplore.ieee.org/document/11127255)

@@ -5,9 +5,9 @@
 [![Defects4J](https://img.shields.io/badge/Defects4J-v3.0.1-green.svg)](https://github.com/rjust/defects4j)
 ![Repository Status](https://img.shields.io/badge/Status-Under%20Development-orange)
 
-This repository contains the code, dataset, and models from our paper "Fixing Performance Bugs Through LLM Explanations". We provide tools to extract performance bugs from Defects4J, fine-tune GPT-4o-mini for performance bug detection, and evaluate the results.
+This repository contains the code, dataset, and models from our paper **["Fixing Performance Bugs Through LLM Explanations"](https://ieeexplore.ieee.org/document/11127255)** (IEEE AITest 2025). We provide tools to extract performance bugs from Defects4J, fine-tune GPT-4o-mini for performance bug detection, and evaluate the results.
 
-🌐 **[View Project Website](https://suryanshss1011.github.io/Performance-Bugs-LLM/)** | 📊 **[Interactive Presentation](https://suryanshss1011.github.io/Performance-Bugs-LLM/presentation/presentation.html)**
+🌐 **[View Project Website](https://suryanshss1011.github.io/Performance-Bugs-LLM/)** | 📊 **[Interactive Presentation](https://suryanshss1011.github.io/Performance-Bugs-LLM/presentation/presentation.html)** | 📄 **[Paper (IEEE Xplore)](https://ieeexplore.ieee.org/document/11127255)**
 
 ## 📊 Dataset Statistics
 
@@ -19,11 +19,15 @@ This repository contains the code, dataset, and models from our paper "Fixing Pe
 ## 📑 Documentation Index
 
 ### Core Components
-- **[Dataset Documentation](dataset/)** - Complete dataset of 490 performance bugs with category distribution
-- **[Model Training & Inference](model/)** - Fine-tuning scripts and inference code for GPT-4o-mini
-- **[Evaluation Framework](evaluation/)** - Metrics, benchmarks, and performance validation tools
+- **[Dataset](data/)** - The 490 performance bugs and per-category training/test splits
 - **[Bug Extraction](extraction/)** - Scripts to extract performance bugs from Defects4J projects
-- **[Conference Presentation](presentation/)** - Interactive slides from our conference presentation
+- **[Bug Categorization](categorization/)** - Classifies bugs into the five performance categories
+- **[Explanation Generation](explanation/)** - Generates LLM-based explanations for each bug
+- **[Model Training](models/)** - Fine-tuning code for GPT-4o-mini
+- **[Evaluation Framework](evaluation/)** - Metrics, benchmarks, and model comparison
+- **[Performance Validation](validation/)** - Tools to validate that fixes improve performance
+- **[Notebooks](notebooks/)** - Jupyter notebooks for analysis and visualization
+- **[Conference Presentation](presentation/)** - Interactive slides
 
 ### Detailed Guides
 - **[Installation Guide](docs/INSTALLATION_GUIDE.md)** - Step-by-step setup instructions
@@ -34,28 +38,31 @@ This repository contains the code, dataset, and models from our paper "Fixing Pe
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/performance-bugs-llm.git
-cd performance-bugs-llm
+git clone https://github.com/SuryanshSS1011/Performance-Bugs-LLM.git
+cd Performance-Bugs-LLM
 
-# Set up the environment
+# Set up the environment (creates venv and installs requirements)
 ./scripts/setup_environment.sh
 
-# Download and prepare the dataset
-python scripts/validate_dataset.py
-
-# Run the model on a Java file of your choice to 
-python model/inference/detect_performance_bugs.py --file YourJavaFile.java
+# Run the end-to-end pipeline
+python main.py
 ```
 
 ## 📁 Repository Structure
 
-- **`dataset/`**: The 490 performance bugs dataset with categories and metadata
+- **`data/`**: The 490 performance bugs dataset, training splits, and evaluation reports
 - **`extraction/`**: Scripts for extracting performance bugs from Defects4J
-- **`model/`**: Fine-tuning and inference code for GPT-4o-mini
-- **`evaluation/`**: Evaluation metrics and analysis scripts
-- **`performance_testing/`**: Code for validating performance improvements
-- **`docs/`**: Detailed documentation
+- **`categorization/`**: Classifies bugs into the five performance categories
+- **`explanation/`**: Generates LLM-based bug explanations
+- **`processing/`**: Method-level code extraction
+- **`models/`**: Fine-tuning code for GPT-4o-mini
+- **`evaluation/`**: Evaluation metrics, comparison framework, and reports
+- **`validation/`**: Code for validating performance improvements
 - **`notebooks/`**: Jupyter notebooks for exploration and visualization
+- **`results/visualizations/`**: Generated figures (Fig. 1–3 from the paper)
+- **`scripts/`**: Setup script and figure generation
+- **`docs/`**: Installation, usage, and dataset documentation
+- **`ref/`**: Reference materials (technical guide; paper PDF gitignored)
 
 ## 🔧 Installation
 
@@ -92,83 +99,63 @@ cp .env.example .env
 # Edit .env and add your OpenAI API key
 ```
 
-5. **Install Defects4J** (if reproducing extraction):
-```bash
-./scripts/download_defects4j.sh
-```
+5. **Install Defects4J** (only needed if reproducing bug extraction). Follow the
+   official setup at https://github.com/rjust/defects4j and ensure the `defects4j`
+   command is on your `PATH`.
 
 ## 📊 Using the Dataset
 
-The dataset is available in both JSON and CSV formats:
+The dataset is provided as JSON:
 
 ```python
 import json
-import pandas as pd
+from collections import Counter
 
-# Load JSON format
-with open('dataset/performance_bugs_490.json', 'r') as f:
+with open('data/performance_bugs_490.json', 'r') as f:
     bugs = json.load(f)
 
-# Load CSV format
-df = pd.read_csv('dataset/performance_bugs_490.csv')
-
-# View category distribution
-print(df['category'].value_counts())
+print(f"Total bugs: {len(bugs)}")
+print("Category distribution:", Counter(b['category'] for b in bugs))
 ```
 
-## 🤖 Using the Model
+Per-category training splits live in `data/training/` as JSONL files
+(`train_algorithmic_inefficiency.jsonl`, etc.) plus `train_combined.jsonl` and
+`test_combined.jsonl`.
 
-### Detection
-```python
-from model.inference.detect_performance_bugs import PerformanceBugDetector
+## 🤖 Reproducing the Pipeline
 
-detector = PerformanceBugDetector()
-result = detector.detect_file('path/to/YourJavaFile.java')
-
-print(f"Performance bug detected: {result['is_performance_bug']}")
-print(f"Category: {result['category']}")
-print(f"Explanation: {result['explanation']}")
-```
-
-### Fine-tuning (Reproduction)
-```bash
-# Prepare training data
-python model/fine_tuning/prepare_training_data.py
-
-# Fine-tune the model
-python model/fine_tuning/fine_tune_gpt4o_mini.py --config model/fine_tuning/training_config.json
-```
-
-## 📈 Reproducing Paper Results
-
-To reproduce all results from the paper:
+The end-to-end pipeline is orchestrated by `main.py`:
 
 ```bash
-./scripts/reproduce_paper_results.sh
+python main.py
 ```
 
-This will:
-1. Extract performance bugs from Defects4J
-2. Fine-tune the model
-3. Run evaluation metrics
-4. Generate all figures and tables
+Individual stages can also be run via their modules:
 
-## 🧪 Performance Validation
+- **Extraction**: `python -m extraction.defects4j_extractor`
+- **Categorization**: `python -m categorization.bug_categorizer`
+- **Explanation generation**: `python -m explanation.explanation_generator`
+- **Fine-tuning**: `python -m models.fine_tuning_executor`
+- **Evaluation**: `python -m evaluation.comprehensive_evaluator`
+- **Performance validation**: `python -m validation.performance_tester`
 
-We provide tools to validate that the identified bugs actually improve performance:
+## 📈 Regenerating Paper Figures
+
+The three figures from the paper (Fig. 1 — category distribution, Fig. 2 — per-project
+breakdown, Fig. 3 — per-category P/R/F1) can be regenerated from the published numbers:
 
 ```bash
-cd performance_testing
-python test_harness/run_performance_tests.py --bug-id Chart-11
+python scripts/generate_paper_figures.py
 ```
+
+Outputs are written to `results/visualizations/`.
 
 ## 📚 Documentation
 
-- [Installation Guide](docs/INSTALLATION.md) - Detailed setup instructions
+- [Installation Guide](docs/INSTALLATION_GUIDE.md) - Detailed setup instructions
 - [Usage Guide](docs/USAGE.md) - How to use each component
 - [Dataset Description](docs/DATASET_DESCRIPTION.md) - Detailed dataset documentation
-- [Model Architecture](docs/MODEL_ARCHITECTURE.md) - Model details and training process
-- [Reproduction Guide](docs/REPRODUCTION_GUIDE.md) - Step-by-step reproduction instructions
+- [Technical Guide](ref/TECHNICAL_GUIDE.md) - Implementation notes and design decisions
 
 ## 📊 Key Results
 
@@ -194,17 +181,15 @@ python test_harness/run_performance_tests.py --bug-id Chart-11
 If you use this dataset or code, please cite our paper:
 
 ```bibtex
-@inproceedings{performancebugs2025,
+@inproceedings{sijwali2025fixing,
   title={Fixing Performance Bugs Through LLM Explanations},
   author={Sijwali, Suryansh Singh and Colom, Angela Marie and Guo, Anbi and Saha, Suman},
-  booktitle={Proceedings of the Conference},
-  year={2025}
+  booktitle={2025 IEEE International Conference on Artificial Intelligence Testing (AITest)},
+  year={2025},
+  pages={102--109},
+  doi={10.1109/AITest66680.2025.00020}
 }
 ```
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md).
 
 ## 📄 License
 
@@ -224,5 +209,5 @@ For questions or issues, please:
 
 ## 🔗 Links
 
-- [Paper]()
+- [Paper (IEEE Xplore)](https://ieeexplore.ieee.org/document/11127255)
 - [Defects4J](https://github.com/rjust/defects4j)

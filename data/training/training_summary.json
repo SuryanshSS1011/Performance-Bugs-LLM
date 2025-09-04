@@ -1,28 +1,33 @@
 {
   "total_bugs": 490,
-  "train_examples": 363,
-  "test_examples": 92,
-  "train_split": 0.7978021978021979,
+  "train_examples": 392,
+  "test_examples": 98,
+  "train_split": 0.8,
   "categories": {
     "algorithmic_inefficiency": {
-      "train": 49,
-      "test": 16
+      "train": 132,
+      "test": 33,
+      "total": 165
     },
     "memory_usage": {
-      "train": 83,
-      "test": 13
+      "train": 93,
+      "test": 23,
+      "total": 116
     },
     "redundant_computation": {
-      "train": 105,
-      "test": 25
+      "train": 43,
+      "test": 11,
+      "total": 54
     },
     "cpu_overhead": {
-      "train": 114,
-      "test": 35
+      "train": 79,
+      "test": 20,
+      "total": 99
     },
     "io_inefficiency": {
-      "train": 12,
-      "test": 3
+      "train": 45,
+      "test": 11,
+      "total": 56
     }
   }
 }

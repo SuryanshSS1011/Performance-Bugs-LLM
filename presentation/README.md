@@ -61,10 +61,11 @@ This presentation works best in:
 
 ## Related Resources
 
-- **[Paper Abstract](../README.md)** - Overview of the research
-- **[Dataset](../dataset/)** - The 490 performance bugs presented
-- **[Model Results](../model/)** - The fine-tuning approach discussed
-- **[Evaluation Details](../evaluation/)** - The metrics shown in slides
+- **[Project README](../README.md)** - Overview of the research
+- **[Paper (IEEE Xplore)](https://ieeexplore.ieee.org/document/11127255)** - The published paper
+- **[Dataset](../data/performance_bugs_490.json)** - The 490 performance bugs presented
+- **[Models](../models/)** - The fine-tuning code discussed
+- **[Evaluation](../evaluation/)** - The metrics shown in slides
 
 ## License
 

@@ -1,9 +1,10 @@
 # Performance Bugs Through LLM Explanations
 
+[![DOI](https://zenodo.org/badge/1002713057.svg)](https://doi.org/10.5281/zenodo.20113202)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Defects4J](https://img.shields.io/badge/Defects4J-v3.0.1-green.svg)](https://github.com/rjust/defects4j)
-![Repository Status](https://img.shields.io/badge/Status-Under%20Development-orange)
+[![Paper](https://img.shields.io/badge/Paper-IEEE%20AITest%202025-darkblue.svg)](https://ieeexplore.ieee.org/document/11127255)
 
 This repository contains the code, dataset, and models from our paper **["Fixing Performance Bugs Through LLM Explanations"](https://ieeexplore.ieee.org/document/11127255)** (IEEE AITest 2025). We provide tools to extract performance bugs from Defects4J, fine-tune GPT-4o-mini for performance bug detection, and evaluate the results.
 
@@ -178,8 +179,9 @@ Outputs are written to `results/visualizations/`.
 
 ## 📖 Citation
 
-If you use this dataset or code, please cite our paper:
+If you use this work, please cite both the paper and the archived dataset/code:
 
+**Paper**
 ```bibtex
 @inproceedings{sijwali2025fixing,
   title={Fixing Performance Bugs Through LLM Explanations},
@@ -188,6 +190,18 @@ If you use this dataset or code, please cite our paper:
   year={2025},
   pages={102--109},
   doi={10.1109/AITest66680.2025.00020}
+}
+```
+
+**Dataset and code (Zenodo)**
+```bibtex
+@software{sijwali2025fixing_artifact,
+  title={Performance-Bugs-LLM: Dataset and Code for "Fixing Performance Bugs Through LLM Explanations"},
+  author={Sijwali, Suryansh Singh and Colom, Angela Marie and Guo, Anbi and Saha, Suman},
+  year={2025},
+  publisher={Zenodo},
+  doi={10.5281/zenodo.20113202},
+  url={https://doi.org/10.5281/zenodo.20113202}
 }
 ```
 
@@ -210,4 +224,5 @@ For questions or issues, please:
 ## 🔗 Links
 
 - [Paper (IEEE Xplore)](https://ieeexplore.ieee.org/document/11127255)
+- [Archived Release (Zenodo)](https://doi.org/10.5281/zenodo.20113202)
 - [Defects4J](https://github.com/rjust/defects4j)

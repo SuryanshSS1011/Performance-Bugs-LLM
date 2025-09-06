@@ -180,6 +180,25 @@ python scripts/generate_paper_figures.py
 
 PNG outputs are written to `results/visualizations/`.
 
+## Interactive Demo
+
+A lightweight, dependency-free demo CLI analyzes a single Java snippet or patch
+using pattern-based heuristics (no API key required):
+
+```bash
+# Interactive prompt
+python demo/performance_bug_detector.py --interactive
+
+# Analyze a single file
+python demo/performance_bug_detector.py --file path/to/YourJavaFile.java
+
+# Analyze a patch / diff
+python demo/performance_bug_detector.py --patch path/to/change.patch
+```
+
+Note: this demo uses simple pattern matching and is intended for quick
+exploration. For the full fine-tuned-model pipeline, use `python main.py`.
+
 ## Notebooks
 
 The `notebooks/` directory contains stage-by-stage analysis notebooks:
